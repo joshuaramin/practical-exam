@@ -29,13 +29,6 @@ export default async function handler(req: NextRequest, res: NextApiResponse) {
           userID,
         },
       },
-      Assign: {
-        create: {
-          User: {
-            connect: users,
-          },
-        },
-      },
     },
   });
 
