@@ -5,12 +5,12 @@ interface Props {
   children: React.ReactNode;
   containerClassName?: string;
   selectClassName: string;
-  onClick?: (e: FormEvent<HTMLSelectElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function SelectForm({
   children,
-  onClick,
+  onChange,
   containerClassName,
   selectClassName,
   title,
@@ -18,7 +18,7 @@ export default function SelectForm({
   return (
     <div className={containerClassName}>
       <label>{title}</label>
-      <select onClick={onClick} className={selectClassName}>
+      <select onChange={onChange} className={selectClassName}>
         {children}
       </select>
     </div>

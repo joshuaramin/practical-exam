@@ -4,7 +4,7 @@ import { CreateTodoList, User } from "@/interface";
 import { priority, status, tags } from "@/util/index";
 import Form from "./form/form";
 import AssignUsers from "./assignusers";
-import select from "./form/select";
+import SelectForm from "./form/select";
 import InputForm from "./form/input";
 import TextareaForm from "./form/textarea";
 import ButtonGroup from "./form/buttonGroup";
@@ -103,11 +103,6 @@ export default function Forms({ userID, close }: any) {
     setAssigned(() => !assign);
   };
 
-  const onHandleRemoveAssign = (e: any) => {
-    console.log(e.target.value);
-    // setUsers(users.filter((name: any) => name.id !== e.target.value));
-  };
-
   return (
     <div className="w-100 flex justify-end items-center bg-white absolute inset-0">
       <div className=" bg-white w-full h-dhv absolute inset-0 p-0 bg-opacity-50 flex items-center relaive justify-center border-2 z-10">
@@ -120,7 +115,7 @@ export default function Forms({ userID, close }: any) {
             />
           </div>
         ) : null}
-        <form
+        <Form
           onSubmit={onHandleSubmitForm}
           className="flex flex-col h-auto w-[900px] justify-center p-1 gap-3 text-sm gap-3 bg-white p-4"
         >
@@ -154,19 +149,7 @@ export default function Forms({ userID, close }: any) {
                           key={id}
                           className="bg-gray-300 w-auto p-3 h-10 flex items-center justify-center rounded-full relative"
                         >
-                          <button
-                            type="button"
-                            onClick={(e) =>
-                              setUsers(
-                                users.filter(
-                                  (name: any) =>
-                                    name.id !== e.currentTarget.value
-                                )
-                              )
-                            }
-                            value={id}
-                            className="absolute right-[-5px] top-[-5px] bg-gray-400 rounded-full w-[25px] h-[25px] flex items-center justify-center"
-                          >
+                          <button className="absolute right-[-5px] top-[-5px] bg-gray-400 rounded-full w-[25px] h-[25px] flex items-center justify-center">
                             <TbX size={16} />
                           </button>
                           <span className="text-sm">{username}</span>
@@ -185,11 +168,11 @@ export default function Forms({ userID, close }: any) {
             </div>
           </div>
 
-          <select
-            onClick={onHandleSelectTags}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-50"
-            // selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            // title="Tag"
+          <SelectForm
+            onChange={onHandleSelectTags}
+            containerClassName="w-full flex flex-col gap-2"
+            selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            title="Tag"
           >
             <option>Choose a Tag</option>
             {tags.map(({ name, value }) => (
@@ -197,13 +180,13 @@ export default function Forms({ userID, close }: any) {
                 {name}
               </option>
             ))}
-          </select>
+          </SelectForm>
 
-          <select
+          <SelectForm
             onChange={onHandleSelectStatus}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-50"
-            // selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            // title="Status"
+            containerClassName="w-full flex flex-col gap-2"
+            selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            title="Status"
           >
             <option>Choose a Status</option>
             {status.map(({ name, value }) => (
@@ -211,13 +194,13 @@ export default function Forms({ userID, close }: any) {
                 {name}
               </option>
             ))}
-          </select>
+          </SelectForm>
 
-          <select
+          <SelectForm
             onChange={onHandleSelectPriority}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-50"
-            // selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            // title="Priority"
+            containerClassName="w-full flex flex-col gap-2"
+            selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            title="Priority"
           >
             <option>Choose a Priority</option>
             {priority.map(({ name, value }) => (
@@ -225,25 +208,26 @@ export default function Forms({ userID, close }: any) {
                 {name}
               </option>
             ))}
-          </select>
+          </SelectForm>
 
           <ButtonGroup className="flex items-center justify-between w-full gap-2">
-            <button
+            <ButtonForm
+              name="Cancel"
               type="button"
               className="bg-gray-200 w-full h-[50px] rounded"
               onClick={close}
-            >
-              Cancel
-            </button>
-            <button
+              textClassName={"text-black"}
+            />
+            <ButtonForm
+              name="Submit"
               type="submit"
-              className="bg-black w-full h-[50px] rounded text-white  w-full h-[50px] rounded"
-            >
-              Submit
-            </button>
+              className="bg-black w-full h-[50px] rounded"
+              textClassName={"text-white"}
+            />
           </ButtonGroup>
-        </form>
+        </Form>
       </div>
+      )
     </div>
   );
 }
