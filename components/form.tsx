@@ -237,7 +237,7 @@ export default function Forms({ userID, close }: any) {
             </button>
             <button
               type="submit"
-              className="bg-black w-full h-[50px] rounded text-whitebg-gray-200 w-full h-[50px] rounded"
+              className="bg-black w-full h-[50px] rounded text-white  w-full h-[50px] rounded"
             >
               Submit
             </button>
