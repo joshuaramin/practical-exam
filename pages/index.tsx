@@ -5,7 +5,7 @@ import Table from "@/components/table/table";
 
 export const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://practical-exam-three.vercel.app"
+    ? "https://practical-exam-liart.vercel.app/"
     : "http://localhost:3000";
 
 export default function Home() {
