@@ -4,7 +4,7 @@ import { CreateTodoList, User } from "@/interface";
 import { priority, status, tags } from "@/util/index";
 import Form from "./form/form";
 import AssignUsers from "./assignusers";
-import SelectForm from "./form/select";
+import select from "./form/select";
 import InputForm from "./form/input";
 import TextareaForm from "./form/textarea";
 import ButtonGroup from "./form/buttonGroup";
@@ -120,7 +120,7 @@ export default function Forms({ userID, close }: any) {
             />
           </div>
         ) : null}
-        <Form
+        <form
           onSubmit={onHandleSubmitForm}
           className="flex flex-col h-auto w-[900px] justify-center p-1 gap-3 text-sm gap-3 bg-white p-4"
         >
@@ -185,11 +185,11 @@ export default function Forms({ userID, close }: any) {
             </div>
           </div>
 
-          <SelectForm
+          <select
             onClick={onHandleSelectTags}
-            containerClassName="w-full flex flex-col gap-2"
-            selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            title="Tag"
+            className="w-full flex flex-col gap-2"
+            // selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            // title="Tag"
           >
             <option>Choose a Tag</option>
             {tags.map(({ name, value }) => (
@@ -197,13 +197,13 @@ export default function Forms({ userID, close }: any) {
                 {name}
               </option>
             ))}
-          </SelectForm>
+          </select>
 
-          <SelectForm
+          <select
             onClick={onHandleSelectStatus}
-            containerClassName="w-full flex flex-col gap-2"
-            selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            title="Status"
+            className="w-full flex flex-col gap-2"
+            // selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            // title="Status"
           >
             <option>Choose a Status</option>
             {status.map(({ name, value }) => (
@@ -211,13 +211,13 @@ export default function Forms({ userID, close }: any) {
                 {name}
               </option>
             ))}
-          </SelectForm>
+          </select>
 
-          <SelectForm
-            onClick={onHandleSelectPriority}
-            containerClassName="w-full flex flex-col gap-2"
-            selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            title="Priority"
+          <select
+            onChange={onHandleSelectPriority}
+            className="w-full flex flex-col gap-2"
+            // selectClassName="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            // title="Priority"
           >
             <option>Choose a Priority</option>
             {priority.map(({ name, value }) => (
@@ -225,7 +225,7 @@ export default function Forms({ userID, close }: any) {
                 {name}
               </option>
             ))}
-          </SelectForm>
+          </select>
 
           <ButtonGroup className="flex items-center justify-between w-full gap-2">
             <button
@@ -242,7 +242,7 @@ export default function Forms({ userID, close }: any) {
               Submit
             </button>
           </ButtonGroup>
-        </Form>
+        </form>
       </div>
     </div>
   );
