@@ -10,8 +10,6 @@ import TextareaForm from "./form/textarea";
 import ButtonGroup from "./form/buttonGroup";
 import ButtonForm from "./form/button";
 import Message from "./message";
-import { baseUrl } from "@/pages";
-import generateTaskID from "@/lib/helper";
 
 export default function Forms({ userID, close }: any) {
   const [assign, setAssigned] = useState(false);
@@ -105,6 +103,11 @@ export default function Forms({ userID, close }: any) {
     setAssigned(() => !assign);
   };
 
+  const onHandleRemoveAssign = (e: any) => {
+    console.log(e.target.value);
+    // setUsers(users.filter((name: any) => name.id !== e.target.value));
+  };
+
   return (
     <div className="w-100 flex justify-end items-center bg-white absolute inset-0">
       <div className=" bg-white w-full h-dhv absolute inset-0 p-0 bg-opacity-50 flex items-center relaive justify-center border-2 z-10">
@@ -151,7 +154,19 @@ export default function Forms({ userID, close }: any) {
                           key={id}
                           className="bg-gray-300 w-auto p-3 h-10 flex items-center justify-center rounded-full relative"
                         >
-                          <button className="absolute right-[-5px] top-[-5px] bg-gray-400 rounded-full w-[25px] h-[25px] flex items-center justify-center">
+                          <button
+                            type="button"
+                            onClick={(e) =>
+                              setUsers(
+                                users.filter(
+                                  (name: any) =>
+                                    name.id !== e.currentTarget.value
+                                )
+                              )
+                            }
+                            value={id}
+                            className="absolute right-[-5px] top-[-5px] bg-gray-400 rounded-full w-[25px] h-[25px] flex items-center justify-center"
+                          >
                             <TbX size={16} />
                           </button>
                           <span className="text-sm">{username}</span>
@@ -213,23 +228,22 @@ export default function Forms({ userID, close }: any) {
           </SelectForm>
 
           <ButtonGroup className="flex items-center justify-between w-full gap-2">
-            <ButtonForm
-              name="Cancel"
+            <button
               type="button"
               className="bg-gray-200 w-full h-[50px] rounded"
               onClick={close}
-              textClassName={"text-black"}
-            />
-            <ButtonForm
-              name="Submit"
+            >
+              Cancel
+            </button>
+            <button
               type="submit"
-              className="bg-black w-full h-[50px] rounded"
-              textClassName={"text-white"}
-            />
+              className="bg-black w-full h-[50px] rounded text-whitebg-gray-200 w-full h-[50px] rounded"
+            >
+              Submit
+            </button>
           </ButtonGroup>
         </Form>
       </div>
-      )
     </div>
   );
 }

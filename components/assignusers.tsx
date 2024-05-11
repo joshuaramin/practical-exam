@@ -1,6 +1,6 @@
 import { baseUrl } from "@/pages";
 import React, { useEffect, useState } from "react";
-import { TbPlus, TbX } from "react-icons/tb";
+import { TbX } from "react-icons/tb";
 
 export default function AssignUsers({ setUsers, user, close }: any) {
   const [users, setUser] = useState<any>();
