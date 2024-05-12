@@ -28,7 +28,7 @@ export default function UpdatePriority({ id, prior, close }: any) {
     setPrio(e.currentTarget.value);
   };
   return (
-    <div className="w-[500px] h-[230px] shadow rounded-lg flex items-center p-2 bg-white">
+    <div className="w-[500px] h-[250px] shadow rounded-lg flex items-center p-2 bg-white">
       <Form
         onSubmit={onHandleSubmit}
         className="w-full flex flex-col gap-6 px-5"
