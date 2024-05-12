@@ -45,7 +45,7 @@ export default function DeleteTask({
         <div className="w-full flex gap-1 items-center">
           <button
             type="submit"
-            className="w-full bg-black text-white rounded h-[40px]"
+            className="w-full bg-red-500 text-white rounded h-[40px]"
           >
             OK
           </button>
