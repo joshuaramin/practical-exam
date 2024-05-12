@@ -35,7 +35,7 @@ export default function UpdatePriority({ id, prior, close }: any) {
       >
         <div>
           <h2 className="font-bold text-[20px]">
-            Do you want to delete this task?
+            Do you want to update this task priority?
           </h2>
           <span>This action is permanent and cannot be undone.</span>
         </div>

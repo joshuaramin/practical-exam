@@ -45,7 +45,7 @@ export default function UpdateStatus({
       >
         <div>
           <h2 className="font-bold text-[20px]">
-            Do you want to delete this task?
+            Do you want to update this task status?
           </h2>
           <span>This action is permanent and cannot be undone.</span>
         </div>
