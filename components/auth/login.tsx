@@ -17,21 +17,21 @@ export default function Login({
     <div className="bg-gray-300 bg-opacity-50 absolute inset-0 flex items-center justify-center z-10">
       <Form
         onSubmit={onHandSubmitLogin}
-        className="w-[500px] bg-white h-[490px]  p-4 flex flex-col items-center rounded shadow-sm justify-center  gap-10 rounded"
+        className="w-[500px] bg-white h-[450px] p-4 flex flex-col items-center rounded shadow-xl justify-center  gap-10 rounded"
       >
         <h2 className="text-center text-2xl">Login</h2>
         {message === "" ? null : <Message message={message} />}
         <InputForm
           type="text"
           placeholder="Username"
-          className="w-full h10 p-4 border-b-2 outline-none"
+          className="w-full h-5 p-4 px-2 border-b-2 outline-none"
           value={user}
           onChange={onUserChange}
         />
         <InputForm
           type="password"
           placeholder="Password"
-          className="w-full h10 border-b-2 border-b p-4 outline-none"
+          className="w-full h-5 border-b-2 border-b p-4 px-2 outline-none"
           value={password}
           onChange={onPasswordChange}
         />
