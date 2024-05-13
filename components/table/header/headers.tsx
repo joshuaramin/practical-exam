@@ -9,7 +9,7 @@ const poppins = Poppins({
 
 export default function TableHeaders() {
   return (
-    <div className="w-full flex items-center items-center border-2 border-black px-0.5 h-[60px] bg-black text-white">
+    <div className="w-full flex items-center items-center border-2 border-black px-0.5 h-[60px] rounded-sm">
       <div className="w-[200px]  border-black px-0.5  flex items-center gap-3 h-[40px]">
         <span className={poppins.className}>TASK</span>
       </div>

@@ -9,7 +9,9 @@ import {
   TbChevronUp,
   TbChevronDown,
   TbEqual,
-  TbTrash,
+  TbRocket,
+  TbNote,
+  TbBug,
   TbHammer,
 } from "react-icons/tb";
 import ToggleContainer from "../../toggleContainer";
@@ -58,7 +60,7 @@ export default function TableRow({
     setToggle(false);
   };
   return (
-    <div className="w-full flex items-center justifyc-center  border-b-2 border-black">
+    <div className="w-full flex items-center justifyc-center  border-b-2 border-black hover:bg-gray-200">
       {viewToggle ? (
         <ToggleContainer>
           <View
@@ -102,7 +104,7 @@ export default function TableRow({
         {assign.User.map(
           ({ username, userID }: { username: string; userID: string }) => (
             <div className="relative" key={userID}>
-              <div className="w-[45px] h-[45px] rounded-full overflow-hidden bg-gray-200 flex items-center justify-center ">
+              <div className="w-[45px] h-[45px] rounded-full overflow-hidden bg-gray-400 text-white flex items-center justify-center ">
                 <div className="p-1 select-none">
                   {username[0].toUpperCase()}
                 </div>
@@ -112,41 +114,60 @@ export default function TableRow({
         )}
       </div>
       <div className="w-[500px] h-[60px] border-black  px-0.5 flex items-center">
-        <span>{tags}</span>
+        {tags === "Bugs" ? (
+          <div className="flex items-center gap-2 text-red-700">
+            <TbBug size={23} />
+            <span>Bug</span>
+          </div>
+        ) : null}
+
+        {tags === "Feature" ? (
+          <div className="flex items-center gap-2 text-green-700">
+            <TbRocket size={23} />
+            <span>Feature</span>
+          </div>
+        ) : null}
+
+        {tags === "Documents" ? (
+          <div className="flex items-center gap-2 text-gray-700">
+            <TbNote size={23} />
+            <span>Documents</span>
+          </div>
+        ) : null}
       </div>
       <div className="w-[500px] h-[60px] border-black  px-0.5 flex items-center">
         {status === "InProgress" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-orange-600">
             <TbProgress size={23} />
             <span>In Progress</span>
           </div>
         ) : null}
         {status === "Doing" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-blue-500">
             <TbHammer size={23} />
             <span>Doing</span>
           </div>
         ) : null}
         {status === "Complete" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-green-500">
             <TbProgressCheck size={23} />
             <span>Complete</span>
           </div>
         ) : null}
         {status === "Canceled" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-red-500">
             <TbProgressAlert size={23} />
             <span>Canceled</span>
           </div>
         ) : null}
         {status === "Incomplete" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-red-500">
             <TbProgressDown size={23} />
             <span>Incomplete</span>
           </div>
         ) : null}
         {status === "Backlog" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-gray-600">
             <TbArrowBackUp size={23} />
             <span>Backlog</span>
           </div>
@@ -154,19 +175,19 @@ export default function TableRow({
       </div>
       <div className="w-[500px] h-[60px] border-black  px-0.5 flex items-center">
         {priority === "High" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-red-700">
             <TbChevronUp size={20} />
             <span>High</span>
           </div>
         ) : null}
         {priority === "Low" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-green-500">
             <TbChevronDown size={20} />
             <span>Low</span>
           </div>
         ) : null}
         {priority === "Medium" ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-orange-600">
             <TbEqual size={20} />
             <span>Medium</span>
           </div>
@@ -191,7 +212,7 @@ export default function TableRow({
               onClick={onHandleUpdateTask}
               className="w-full p-2  hover:bg-black hover:text-white rounded"
             >
-              Update Task
+              Update Status
             </button>
             <button
               onClick={onHandleUpdatePriority}

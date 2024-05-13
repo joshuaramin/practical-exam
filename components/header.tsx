@@ -3,7 +3,7 @@ import Cookie from "js-cookie";
 import Login from "./auth/login";
 import Auth from "@/pages/_auth";
 import { baseUrl } from "@/pages";
-import { TbCircle, TbLogout2, TbUser, TbUserCircle } from "react-icons/tb";
+import { TbUserCircle } from "react-icons/tb";
 import { GetUserData } from "@/interface";
 
 export default function Header() {

@@ -19,7 +19,7 @@ export default function TableBody() {
   }, []);
 
   return (
-    <div className="w-full border-l-2 border-r-2 border-black">
+    <div className="w-full border-l-2 border-r-2 border-black rounded-sm">
       {task?.map(
         ({
           taskID,
