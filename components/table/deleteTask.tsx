@@ -1,16 +1,10 @@
 import React, { FormEvent } from "react";
 import Form from "../form/form";
 import { baseUrl } from "@/pages";
+import ButtonGroup from "../form/buttonGroup";
+import { Button, Dialog, Flex, Text } from "@radix-ui/themes";
 
-export default function DeleteTask({
-  id,
-  title,
-  close,
-}: {
-  id: string;
-  title: string;
-  close: any;
-}) {
+export default function DeleteTask({ id }: { id: string }) {
   const onHandleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -31,33 +25,33 @@ export default function DeleteTask({
     return result;
   };
   return (
-    <div className="w-[500px] h-[230px] shadow rounded-lg flex items-center p-2 bg-white">
-      <Form
-        onSubmit={onHandleSubmit}
-        className="w-full flex flex-col gap-6 px-5"
-      >
-        <div className="w-full flex flex-col gap-1">
-          <h2 className="font-bold text-[20px]">
+    <Flex width="100%" justify="center" align="center" height="100%">
+      <Form onSubmit={onHandleSubmit}>
+        <Flex justify="center" direction="column" gapY="1">
+          <Text as="span" size="5" weight="bold">
             Do you want to delete this task?
-          </h2>
-          <span>This action is permanent and cannot be undone.</span>
-        </div>
-        <div className="w-full flex gap-1 items-center">
-          <button
+          </Text>
+          <Text>This action is permanent and cannot be undone.</Text>
+        </Flex>
+        <ButtonGroup>
+          <Button
+            color="crimson"
             type="submit"
-            className="w-full bg-red-500 text-white rounded h-[40px]"
+            style={{ width: "320px", height: "50px" }}
           >
-            OK
-          </button>
-          <button
-            onClick={close}
-            type="button"
-            className="w-full bg-gray-300 text-black rounded h-[40px]"
-          >
-            Cancel
-          </button>
-        </div>
+            <Text as="span" size="4">
+              OK
+            </Text>
+          </Button>
+          <Dialog.Close>
+            <Button type="button" style={{ width: "320px", height: "50px" }}>
+              <Text as="span" size="4">
+                Cancel
+              </Text>
+            </Button>
+          </Dialog.Close>
+        </ButtonGroup>
       </Form>
-    </div>
+    </Flex>
   );
 }

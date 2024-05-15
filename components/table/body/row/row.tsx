@@ -13,12 +13,18 @@ import {
   TbNote,
   TbBug,
   TbHammer,
+  TbEye,
+  TbTrash,
+  TbReplace,
+  TbStatusChange,
 } from "react-icons/tb";
 import ToggleContainer from "../../toggleContainer";
 import View from "../../view";
 import DeleteTask from "../../deleteTask";
 import UpdateStatus from "../../updateStatus";
 import UpdatePriority from "../../updatePriority";
+import { Table, Avatar, Button, Dialog } from "@radix-ui/themes";
+import IconText from "./icontext";
 
 export default function TableRow({
   id,
@@ -30,205 +36,177 @@ export default function TableRow({
   description,
   taskID,
 }: any) {
-  const [toggle, setToggle] = useState(false);
-  const [viewToggle, setViewToggle] = useState(false);
-  const [deleteToggle, setDeleteToggle] = useState(false);
-  const [updateStatus, setUpdateStatus] = useState(false);
-  const [updatePriority, setUpdatePriority] = useState(false);
-
-  const onHandleToggle = () => {
-    setToggle(() => !toggle);
-  };
-
-  const onHandleViewToggle = () => {
-    setViewToggle(() => !viewToggle);
-    setToggle(false);
-  };
-
-  const onHandleUpdateTask = () => {
-    setUpdateStatus(() => !updateStatus);
-    setToggle(false);
-  };
-
-  const onHandleDeleteToggle = () => {
-    setDeleteToggle(() => !deleteToggle);
-    setToggle(false);
-  };
-
-  const onHandleUpdatePriority = () => {
-    setUpdatePriority(() => !updatePriority);
-    setToggle(false);
-  };
   return (
-    <div className="w-full flex items-center justifyc-center  border-b-2 border-black hover:bg-gray-200">
-      {viewToggle ? (
-        <ToggleContainer>
-          <View
-            assign={assign}
-            title={title}
-            prio={priority}
-            tags={tags}
-            close={onHandleViewToggle}
-            stats={status}
-            description={description}
-          />
-        </ToggleContainer>
-      ) : null}
-      {deleteToggle ? (
-        <ToggleContainer>
-          <DeleteTask id={taskID} title={title} close={onHandleDeleteToggle} />
-        </ToggleContainer>
-      ) : null}
-      {updateStatus ? (
-        <ToggleContainer>
-          <UpdateStatus id={taskID} stats={status} close={onHandleUpdateTask} />
-        </ToggleContainer>
-      ) : null}
-
-      {updatePriority ? (
-        <ToggleContainer>
-          <UpdatePriority
-            id={taskID}
-            prior={priority}
-            close={onHandleUpdatePriority}
-          />
-        </ToggleContainer>
-      ) : null}
-      <div className="w-[200px] border-black  h-[60px] px-0.5 flex items-center gap-2">
-        <span>{id}</span>
-      </div>
-      <div className="w-[500px] border-black  h-[60px] px-0.5 flex items-center">
-        <span>{title}</span>
-      </div>
-      <div className="w-[500px] border-black  h-[60px] px-0.5 flex items-center gap-1">
+    <Table.Row key={taskID} style={{ position: "relative", width: "100%" }}>
+      <Table.Cell>{id}</Table.Cell>
+      <Table.Cell>{title}</Table.Cell>
+      <Table.Cell>
         {assign.User.map(
           ({ username, userID }: { username: string; userID: string }) => (
-            <div className="relative" key={userID}>
-              <div className="w-[45px] h-[45px] rounded-full overflow-hidden bg-gray-400 text-white flex items-center justify-center ">
-                <div className="p-1 select-none">
-                  {username[0].toUpperCase()}
-                </div>
-              </div>
-            </div>
+            <Avatar key={userID} fallback={username[0]} />
           )
         )}
-      </div>
-      <div className="w-[500px] h-[60px] border-black  px-0.5 flex items-center">
-        {tags === "Bugs" ? (
-          <div className="flex items-center gap-2 text-red-700">
-            <TbBug size={23} />
-            <span>Bug</span>
-          </div>
-        ) : null}
-
-        {tags === "Feature" ? (
-          <div className="flex items-center gap-2 text-green-700">
-            <TbRocket size={23} />
-            <span>Feature</span>
-          </div>
-        ) : null}
-
+      </Table.Cell>
+      <Table.Cell>
         {tags === "Documents" ? (
-          <div className="flex items-center gap-2 text-gray-700">
-            <TbNote size={23} />
-            <span>Documents</span>
-          </div>
+          <IconText
+            color="ADD8E6"
+            icon={<TbNote size={23} style={{ stroke: "#ADD8E6" }} />}
+            text="Documents"
+          />
         ) : null}
-      </div>
-      <div className="w-[500px] h-[60px] border-black  px-0.5 flex items-center">
+        {tags === "Feature" ? (
+          <IconText
+            color="32CD32"
+            icon={<TbRocket size={23} style={{ stroke: "#32CD32" }} />}
+            text="Feature"
+          />
+        ) : null}
+        {tags === "Bugs" ? (
+          <IconText
+            color="FF0000"
+            icon={<TbBug size={23} style={{ stroke: "#FF0000" }} />}
+            text="Bugs"
+          />
+        ) : null}
+      </Table.Cell>
+      <Table.Cell>
         {status === "InProgress" ? (
-          <div className="flex items-center gap-2 text-orange-600">
-            <TbProgress size={23} />
-            <span>In Progress</span>
-          </div>
-        ) : null}
-        {status === "Doing" ? (
-          <div className="flex items-center gap-2 text-blue-500">
-            <TbHammer size={23} />
-            <span>Doing</span>
-          </div>
-        ) : null}
-        {status === "Complete" ? (
-          <div className="flex items-center gap-2 text-green-500">
-            <TbProgressCheck size={23} />
-            <span>Complete</span>
-          </div>
-        ) : null}
-        {status === "Canceled" ? (
-          <div className="flex items-center gap-2 text-red-500">
-            <TbProgressAlert size={23} />
-            <span>Canceled</span>
-          </div>
-        ) : null}
-        {status === "Incomplete" ? (
-          <div className="flex items-center gap-2 text-red-500">
-            <TbProgressDown size={23} />
-            <span>Incomplete</span>
-          </div>
+          <IconText
+            color="FFA500"
+            icon={<TbProgress size={23} style={{ stroke: "#FFA500" }} />}
+            text="In Progress"
+          />
         ) : null}
         {status === "Backlog" ? (
-          <div className="flex items-center gap-2 text-gray-600">
-            <TbArrowBackUp size={23} />
-            <span>Backlog</span>
-          </div>
+          <IconText
+            color="A9A9A9"
+            icon={<TbArrowBackUp size={23} style={{ stroke: "#A9A9A9" }} />}
+            text="Backlog"
+          />
         ) : null}
-      </div>
-      <div className="w-[500px] h-[60px] border-black  px-0.5 flex items-center">
+        {status === "Canceled" ? (
+          <IconText
+            color="FF0000"
+            icon={<TbProgressAlert size={23} style={{ stroke: "#FF0000" }} />}
+            text="Canceled"
+          />
+        ) : null}
+        {status === "Complete" ? (
+          <IconText
+            color="008000"
+            icon={<TbProgressCheck size={23} style={{ stroke: "#008000" }} />}
+            text="Complete"
+          />
+        ) : null}
+        {status === "Incomplete" ? (
+          <IconText
+            color="FF0000"
+            icon={<TbProgressDown size={23} style={{ stroke: "#FF0000" }} />}
+            text="Incomplete"
+          />
+        ) : null}
+        {status === "Doing" ? (
+          <IconText
+            color="0000FF"
+            icon={<TbHammer size={23} style={{ stroke: "#0000FF" }} />}
+            text="Doing"
+          />
+        ) : null}
+      </Table.Cell>
+      <Table.Cell>
         {priority === "High" ? (
-          <div className="flex items-center gap-2 text-red-700">
-            <TbChevronUp size={20} />
-            <span>High</span>
-          </div>
-        ) : null}
-        {priority === "Low" ? (
-          <div className="flex items-center gap-2 text-green-500">
-            <TbChevronDown size={20} />
-            <span>Low</span>
-          </div>
+          <IconText
+            color="FF0000"
+            icon={<TbChevronUp size={23} style={{ stroke: "#FF0000" }} />}
+            text="High"
+          />
         ) : null}
         {priority === "Medium" ? (
-          <div className="flex items-center gap-2 text-orange-600">
-            <TbEqual size={20} />
-            <span>Medium</span>
-          </div>
+          <IconText
+            color="FFA500"
+            icon={<TbEqual size={23} style={{ stroke: "#FFA500" }} />}
+            text="Medium"
+          />
         ) : null}
-      </div>
-      <div className="w-[250px] h-[60px] border-black  px-0.5 flex items-center justify-center relative">
-        <button
-          onClick={onHandleToggle}
-          className="hover:bg-black hover:text-white p-1 rounded-full"
-        >
-          <TbDots size={20} />
-        </button>
-        {toggle ? (
-          <div className="w-[150px] h-[auto] shadow-xl border-2 rounded bg-white flex flex-col items-center justify-center absolute top-[50px] right-0 z-10">
-            <button
-              onClick={onHandleViewToggle}
-              className="w-full p-2  hover:bg-black hover:text-white rounded"
-            >
-              View
-            </button>
-            <button
-              onClick={onHandleUpdateTask}
-              className="w-full p-2  hover:bg-black hover:text-white rounded"
-            >
-              Update Status
-            </button>
-            <button
-              onClick={onHandleUpdatePriority}
-              className="w-full p-2  hover:bg-black hover:text-white rounded"
-            >
-              Update Priority
-            </button>
-            <button
-              onClick={onHandleDeleteToggle}
-              className="w-full hover:bg-red-500 p-2 rounded hover:text-white flex items-center justify-center gap-2"
-            >
-              Delete
-            </button>
-          </div>
+        {priority === "Low" ? (
+          <IconText
+            color="008000"
+            icon={<TbChevronDown size={23} style={{ stroke: "#008000" }} />}
+            text="Low"
+          />
         ) : null}
-      </div>
-    </div>
+      </Table.Cell>
+      <Table.Cell>
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <Button
+              size="1"
+              radius="full"
+              style={{ background: "black", height: "40px", width: "40px" }}
+            >
+              <TbEye size={43} />
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content
+            maxWidth="1200px"
+            size="4"
+            style={{ height: "500px" }}
+          >
+            <View
+              title={title}
+              assign={assign}
+              tags={tags}
+              prio={priority}
+              stats={status}
+              description={description}
+            />
+          </Dialog.Content>
+        </Dialog.Root>
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <Button
+              size="1"
+              radius="full"
+              style={{ background: "black", height: "40px", width: "40px" }}
+            >
+              <TbStatusChange size={43} />
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content maxWidth="800px" style={{ height: "300px" }} size="4">
+            <UpdateStatus id={taskID} stats={status} />
+          </Dialog.Content>
+        </Dialog.Root>
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <Button
+              size="1"
+              radius="full"
+              style={{ background: "black", height: "40px", width: "40px" }}
+            >
+              <TbReplace size={43} />
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content maxWidth="800px" style={{ height: "300px" }} size="4">
+            <UpdatePriority id={taskID} prio={priority} />
+          </Dialog.Content>
+        </Dialog.Root>
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <Button
+              size="1"
+              radius="full"
+              color="crimson"
+              style={{ background: "black", height: "40px", width: "40px" }}
+            >
+              <TbTrash size={43} />
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content maxWidth="700px" style={{ height: "300px" }} size="4">
+            <DeleteTask id={taskID} />
+          </Dialog.Content>
+        </Dialog.Root>
+      </Table.Cell>
+    </Table.Row>
   );
 }

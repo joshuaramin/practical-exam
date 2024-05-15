@@ -1,15 +1,22 @@
 import React, { FormEvent } from "react";
-
+import * as Form from "@radix-ui/react-form";
 interface Form {
   onSubmit: (e: FormEvent) => Promise<any>;
-  className: string;
   children: React.ReactNode;
 }
 
-export default function Form({ onSubmit, className, children }: Form) {
+export default function Forms({ onSubmit, children }: Form) {
   return (
-    <form className={className} onSubmit={onSubmit}>
+    <Form.Root
+      style={{
+        width: "700px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "15px",
+      }}
+      onSubmit={onSubmit}
+    >
       {children}
-    </form>
+    </Form.Root>
   );
 }

@@ -1,13 +1,19 @@
-import React from 'react'
+import { Flex } from "@radix-ui/themes";
+import React from "react";
 
-interface Props  {
-    className: string,
-    children: React.ReactNode
+interface Props {
+  children: React.ReactNode;
 }
-export default function ButtonGroup({ className, children}: Props) {
+export default function ButtonGroup({ children }: Props) {
   return (
-    <div className={className}>
-        {children}
-    </div>
-  )
+    <Flex
+      width="100%"
+      height="100px"
+      gapX="4"
+      justify={"center"}
+      align="center"
+    >
+      {children}
+    </Flex>
+  );
 }

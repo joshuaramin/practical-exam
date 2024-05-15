@@ -5,6 +5,7 @@ import Auth from "@/pages/_auth";
 import { baseUrl } from "@/pages";
 import { TbUserCircle } from "react-icons/tb";
 import { GetUserData } from "@/interface";
+import { Flex, Button, Box, Text } from "@radix-ui/themes";
 
 export default function Header() {
   const token = Auth();
@@ -75,38 +76,53 @@ export default function Header() {
     window.location.reload();
   };
   return (
-    <div className="w-100 h-28  flex justify-between items-center">
-      <div className="flex flex-col gap-2">
+    <Flex justify="between" align="center" width="100%">
+      <Flex direction="column" gapY="2">
         <h2 className="text-2xl font-bold">
           Welcome Back{uname?.username ? ` ${uname?.username}` : ""}!
         </h2>
         <span className="font-light text-lg">Here is your ToDo List</span>
-      </div>
-      <div className="flex items-center gap-2">
+      </Flex>
+      <Flex align="center" gapX="2">
         {token ? (
-          <div className="flex relative">
-            <button onClick={onHandleToggle}>
+          <Flex position="relative">
+            <Button
+              onClick={onHandleToggle}
+              color="gray"
+              variant="soft"
+              size="3"
+              radius="small"
+              style={{ border: "none", background: "transparent" }}
+            >
               <TbUserCircle size={40} style={{ strokeWidth: "1.5px" }} />
-            </button>
+            </Button>
             {toggle ? (
-              <div className="bg-white p-2 shadow-xl w-[180px] rounded absolute py-4 flex flex-col gap-2 right-0 top-10">
-                <div className="px-1 py-2  w-full border-b-2 flex  flex-col justify-start">
-                  <span className="">{uname?.username}</span>
-                  <span className="text-[13px]">
-                    {uname?.role.toUpperCase()}
-                  </span>
-                </div>
-                <button
-                  onClick={onHandleLogout}
-                  className="hover:bg-red-500 hover:text-white h-[40px] w-full gap-2  px-2 rounded-[5px] flex items-center justify-start rounded"
-                >
-                  <span className="text-[16px] font-medium">Logout</span>
-                </button>
-              </div>
+              <Flex
+                direction="column"
+                top="8"
+                position="absolute"
+                width="180px"
+                style={{
+                  background: "#fff",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                }}
+                p="3"
+                right="0"
+                gapY="2"
+              >
+                <Flex direction="column" gapY="22">
+                  <Text as="span">{uname?.username}</Text>
+                  <Text as="span">{uname?.role.toUpperCase()}</Text>
+                </Flex>
+                <Button onClick={onHandleLogout} color="crimson" variant="soft">
+                  <Text as="span">Logout</Text>
+                </Button>
+              </Flex>
             ) : null}
-          </div>
+          </Flex>
         ) : null}
-      </div>
+      </Flex>
 
       {token ? null : (
         <Login
@@ -119,6 +135,6 @@ export default function Header() {
           onPasswordChange={onHandlePasswordChange}
         />
       )}
-    </div>
+    </Flex>
   );
 }

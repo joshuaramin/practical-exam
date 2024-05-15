@@ -3,7 +3,8 @@ import Message from "../message";
 import ButtonForm from "../form/button";
 import ButtonGroup from "../form/buttonGroup";
 import InputForm from "../form/input";
-import Form from "../form/form";
+import { Flex, Text } from "@radix-ui/themes";
+import * as Form from "@radix-ui/react-form";
 
 export default function Login({
   onHandSubmitLogin,
@@ -14,28 +15,41 @@ export default function Login({
   message,
 }: any) {
   return (
-    <div className="bg-gray-300 bg-opacity-50 absolute inset-0 flex items-center justify-center z-10">
-      <Form
+    <Flex
+      style={{ backgroundColor: "gray" }}
+      width="100%"
+      position="absolute"
+      inset="0"
+      justify="center"
+      align="center"
+    >
+      <Form.Root
         onSubmit={onHandSubmitLogin}
-        className="w-[500px] bg-white h-[450px] p-4 flex flex-col items-center rounded shadow-xl justify-center  gap-10 rounded"
+        className="w-[500px] bg-white h-[450px] p-4 flex flex-col items-center rounded shadow-xl justify-center  gap-10 rounded z-20"
       >
-        <h2 className="text-center text-2xl">Login</h2>
+        <Text className="text-center text-2xl">Login</Text>
         {message === "" ? null : <Message message={message} />}
-        <InputForm
-          type="text"
-          placeholder="Username"
-          className="w-full h-5 p-4 px-2 border-b-2 outline-none"
-          value={user}
-          onChange={onUserChange}
-        />
-        <InputForm
-          type="password"
-          placeholder="Password"
-          className="w-full h-5 border-b-2 border-b p-4 px-2 outline-none"
-          value={password}
-          onChange={onPasswordChange}
-        />
-        <ButtonGroup className="w-full flex  items-center justify-center gap-1">
+
+        <Form.FormField name="User" style={{ width: "100%" }}>
+          <InputForm
+            type="text"
+            placeholder="Username"
+            className="w-full h-5 border-b-2 border-b p-4 px-2 outline-none"
+            value={user}
+            onChange={onUserChange}
+          />
+        </Form.FormField>
+
+        <Form.FormField name="Pasword" style={{ width: "100%" }}>
+          <InputForm
+            type="password"
+            placeholder="Password"
+            className="w-full h-5 border-b-2 border-b p-4 px-2 outline-none"
+            value={password}
+            onChange={onPasswordChange}
+          />
+        </Form.FormField>
+        <ButtonGroup>
           <ButtonForm
             type="submit"
             className="w-full bg-black p-1 h-12 p-4 flex items-center justify-center rounded"
@@ -43,7 +57,7 @@ export default function Login({
             textClassName="text-white"
           />
         </ButtonGroup>
-      </Form>
-    </div>
+      </Form.Root>
+    </Flex>
   );
 }

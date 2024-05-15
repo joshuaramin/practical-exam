@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TbCirclePlus } from "react-icons/tb";
 import Forms from "./form";
+import { Box, Button, Dialog, Flex, Text } from "@radix-ui/themes";
 
 export default function Navigation({ userID }: any) {
   const [add, setAdd] = useState(false);
@@ -10,17 +11,29 @@ export default function Navigation({ userID }: any) {
   };
 
   return (
-    <div className="w-full flex items-center justify-end">
-      <div>
-        <button
-          onClick={onHandleAdd}
-          className="flex items-center gap-2 hover:bg-black hover:text-white p-2 rounded border-2 border-black justify-center"
-        >
-          <TbCirclePlus size={25} style={{ strokeWidth: "1.5px" }} />
-          <span className="text-xl">Add</span>
-        </button>
-        {add ? <Forms close={onHandleAdd} userID={userID} /> : null}
-      </div>
-    </div>
+    <Flex width="100%" height="120px" align="center" justify="end">
+      <Box>
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <Button
+              onClick={onHandleAdd}
+              style={{
+                width: "100px",
+                height: "45px",
+                background: "#000",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <TbCirclePlus size={25} style={{ strokeWidth: "1.5px" }} />
+              <Text size="5">Add</Text>
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Content maxWidth="800px" style={{ height: "900px" }}>
+            <Forms userID={userID} />
+          </Dialog.Content>
+        </Dialog.Root>
+      </Box>
+    </Flex>
   );
 }

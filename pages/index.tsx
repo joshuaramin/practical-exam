@@ -3,6 +3,7 @@ import Auth from "./_auth";
 import Navigation from "@/components/navigation";
 import Table from "@/components/table/table";
 import { useState } from "react";
+import { Flex } from "@radix-ui/themes";
 
 export const baseUrl =
   process.env.NODE_ENV === "production"
@@ -19,7 +20,7 @@ export default function Home() {
   };
 
   return (
-    <div className="p-10 w-full  h-dvh flex flex-col gap-5">
+    <Flex direction="column" height="100vh" align="center" gapX="5" p="9">
       <Header />
       <Navigation
         userID={token}
@@ -27,6 +28,6 @@ export default function Home() {
         onClick={onHandleChangeToKanban}
       />
       <Table />
-    </div>
+    </Flex>
   );
 }

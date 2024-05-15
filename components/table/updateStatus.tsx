@@ -1,15 +1,14 @@
 import { status } from "@/util";
-import React, { FormEvent, SyntheticEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Form from "../form/form";
+import { Button, Dialog, Flex, Text, Select } from "@radix-ui/themes";
 
 export default function UpdateStatus({
   stats,
-  close,
   id,
 }: {
   stats: string;
   id: string;
-  close: any;
 }) {
   const [stat, setStatus] = useState(stats);
 
@@ -34,48 +33,57 @@ export default function UpdateStatus({
     return response;
   };
 
-  const onHandleSelectChange = (e: FormEvent<HTMLSelectElement>) => {
-    setStatus(e.currentTarget.value);
-  };
   return (
-    <div className="w-[500px] h-[250px] shadow rounded-lg flex items-center p-2 bg-white">
-      <Form
-        onSubmit={onHandleSubmit}
-        className="w-full flex flex-col gap-6 px-5"
-      >
-        <div>
-          <h2 className="font-bold text-[20px]">
+    <Flex height="100%" align="center" justify="center">
+      <Form onSubmit={onHandleSubmit}>
+        <Flex direction="column" gapY="1">
+          <Text as="span" size="4" weight="bold">
             Do you want to update this task status?
-          </h2>
-          <span>This action is permanent and cannot be undone.</span>
-        </div>
-        <select
-          value={stat}
-          onChange={onHandleSelectChange}
-          className="w-full p-2"
+          </Text>
+          <Text as="span">This action is permanent and cannot be undone.</Text>
+        </Flex>
+        <Flex direction="column" gapY="2">
+          <Text as="span">Status</Text>
+
+          <Select.Root defaultValue={stat} onValueChange={setStatus} size="3">
+            <Select.Trigger />
+
+            <Select.Content>
+              {status.map(({ name, value }) => (
+                <Select.Item key={name} value={value}>
+                  {name}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
+        </Flex>
+
+        <Flex
+          width="100%"
+          gapX="1"
+          align="center"
+          justify="center"
+          height="70px"
         >
-          {status.map(({ name, value }) => (
-            <option key={name} value={value}>
-              {name}
-            </option>
-          ))}
-        </select>
-        <div className="w-full flex gap-1 items-center">
-          <button
-            type="submit"
-            className="w-full bg-black text-white rounded h-[40px]"
-          >
-            OK
-          </button>
-          <button
-            onClick={close}
-            type="button"
-            className="w-full bg-gray-300 text-black rounded h-[40px]"
-          >
-            Cancel
-          </button>
-        </div>
+          <Button type="submit" style={{ width: "350px", height: "50px" }}>
+            <Text as="span" size="5">
+              OK
+            </Text>
+          </Button>
+          <Dialog.Close>
+            <Button
+              type="button"
+              color="gray"
+              variant="solid"
+              style={{ width: "350px", height: "50px" }}
+            >
+              <Text as="span" size="4">
+                Cancel
+              </Text>
+            </Button>
+          </Dialog.Close>
+        </Flex>
       </Form>
-    </div>
+    </Flex>
   );
 }

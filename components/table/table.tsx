@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from "react";
 import TableHeaders from "./header/headers";
 import TableBody from "./body/body";
+import { Table } from "@radix-ui/themes";
 
-export default function Table() {
-
-  const [task, setTask] = useState<any[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`/api/get`, { method: "GET" });
-
-      const result = await response.json();
-
-      setTask(result);
-    };
-
-    fetchData();
-  }, []);
-
+export default function Tables() {
   return (
-    <div className="flex flex-col gap-3">
-      <div>
-        <TableHeaders />
-        <TableBody />
-      </div>
-      <span className="text-lg">Total of Task: {task.length}</span>
-    </div>
+    <Table.Root
+      style={{ width: "100%", height: "100vh", position: "relative" }}
+      layout="auto"
+      variant="ghost"
+      size="3"
+    >
+      <TableHeaders />
+      <TableBody />
+    </Table.Root>
   );
 }

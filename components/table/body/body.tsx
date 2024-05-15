@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TableRow from "./row/row";
-
+import { Table } from "@radix-ui/themes";
 export default function TableBody() {
   const [task, setTask] = useState<any[]>();
 
@@ -19,7 +19,7 @@ export default function TableBody() {
   }, []);
 
   return (
-    <div className="w-full border-l-2 border-r-2 border-black rounded-sm">
+    <Table.Body>
       {task?.map(
         ({
           taskID,
@@ -34,16 +34,16 @@ export default function TableBody() {
           <TableRow
             key={taskID}
             taskID={taskID}
-            id={id}
-            title={title}
+            tags={tags}
             status={status}
             assign={Assign}
-            tags={tags}
+            id={id}
+            title={title}
             priority={priority}
             description={description}
           />
         )
       )}
-    </div>
+    </Table.Body>
   );
 }

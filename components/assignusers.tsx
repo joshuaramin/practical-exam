@@ -1,4 +1,5 @@
 import { baseUrl } from "@/pages";
+import { Flex, Button, Text, Dialog } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
 import { TbX } from "react-icons/tb";
 
@@ -30,54 +31,49 @@ export default function AssignUsers({ setUsers, user, close }: any) {
   if (!users || users.length === 0) return <p>There are no active users</p>;
 
   return (
-    <div className="w-4/12 min-h-[400px] bg-gray-300 p-4 flex flex-col gap-4 justity-between bg-white z-10 rounded shadow">
-      <div className="flex flex-col gap-5">
-        <div className="w-full h-[75px] flex items-center justify-end">
-          <button
-            onClick={close}
-            className="w-[40px] h-[40px] rounded-full hover:text-white flex  items-center justify-center hover:bg-black"
-          >
-            <TbX size={23} />
-          </button>
-        </div>
-      </div>
-      <div className="flex flex-col h-[250px] overflow-y-auto">
+    <Flex justify="between" direction="column" height="100%">
+      <Flex width="100%" className="flex flex-col h-[250px]">
         {users.map(
           ({ username, userID }: { username: string; userID: string }) => (
-            <div
-              className="border-b-2 h-[60px]  flex items-center justify-between"
+            <Flex
+              justify="between"
+              align="center"
+              height="60px"
+              // className="border-b-2 h-[60px]  flex items-center justify-between"
               key={userID}
             >
               <span>{username}</span>
               {user.find((a: any) => a.id === userID) ? (
-                <button
+                <Button
                   onClick={onHandleRemoveAssign}
                   value={userID}
-                  className="bg-red-500 text-white p-2 border-none rounded"
+                  color="crimson"
                 >
-                  Removed
-                </button>
+                  <Text as="span">Removed</Text>
+                </Button>
               ) : (
-                <button
+                <Button
                   onClick={() => onHandleAdd(userID, username)}
                   value={username}
-                  className="bg-black text-white rounded p-2 w-20 flex items-center justify-center"
+                  style={{ background: "#000", color: "#fff" }}
                 >
-                  <span>Add</span>
-                </button>
+                  <Text as="span">Add</Text>
+                </Button>
               )}
-            </div>
+            </Flex>
           )
         )}
-      </div>
-      <div className="flex justify-end h-[200px] items-center">
-        <button
-          onClick={close}
-          className="w-[80px] h-[40px] bg-black rounded text-white "
-        >
-          Done
-        </button>
-      </div>
-    </div>
+      </Flex>
+      <Flex justify="end" width="100%">
+        <Dialog.Close>
+          <Button
+            onClick={close}
+            style={{ width: "80px", height: "45px", background: "#000" }}
+          >
+            <Text as="span">Done</Text>
+          </Button>
+        </Dialog.Close>
+      </Flex>
+    </Flex>
   );
 }
